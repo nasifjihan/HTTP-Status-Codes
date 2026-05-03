@@ -1,426 +1,437 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>HTTP Status Codes</title>
-    <style>
-      :root {
-        --bg0: #0b1020;
-        --bg1: #0a1633;
-        --card: rgba(255, 255, 255, 0.06);
-        --card2: rgba(255, 255, 255, 0.1);
-        --text: rgba(255, 255, 255, 0.92);
-        --muted: rgba(255, 255, 255, 0.7);
-        --muted2: rgba(255, 255, 255, 0.55);
-        --border: rgba(255, 255, 255, 0.14);
-        --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-        --radius: 16px;
-        --info: #3b82f6;
-        --success: #22c55e;
-        --redirect: #a855f7;
-        --client: #f59e0b;
-        --server: #ef4444;
-        --chip: rgba(255, 255, 255, 0.08);
-        --focus: rgba(59, 130, 246, 0.45);
-      }
 
-      * {
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTTP Status Codes</title>
+  <style>
+    :root {
+      --bg0: #0b1020;
+      --bg1: #0a1633;
+      --card: rgba(255, 255, 255, 0.06);
+      --card2: rgba(255, 255, 255, 0.1);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.7);
+      --muted2: rgba(255, 255, 255, 0.55);
+      --border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      --radius: 16px;
+      --info: #3b82f6;
+      --success: #22c55e;
+      --redirect: #a855f7;
+      --client: #f59e0b;
+      --server: #ef4444;
+      --chip: rgba(255, 255, 255, 0.08);
+      --focus: rgba(59, 130, 246, 0.45);
+    }
 
-      html,
-      body {
-        height: 100%;
-      }
+    * {
+      box-sizing: border-box;
+    }
 
-      body {
-        margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, "Helvetica Neue", sans-serif;
-        color: var(--text);
-        background: radial-gradient(1200px 700px at 10% 10%, rgba(59, 130, 246, 0.18), transparent 55%),
-          radial-gradient(900px 600px at 85% 15%, rgba(168, 85, 247, 0.18), transparent 55%),
-          radial-gradient(1000px 700px at 20% 90%, rgba(34, 197, 94, 0.16), transparent 55%),
-          linear-gradient(180deg, var(--bg0), var(--bg1));
-      }
+    html,
+    body {
+      min-height: 100%;
+      background: radial-gradient(1200px 700px at 10% 10%, rgba(59, 130, 246, 0.18), transparent 55%),
+        radial-gradient(900px 600px at 85% 15%, rgba(168, 85, 247, 0.18), transparent 55%),
+        radial-gradient(1000px 700px at 20% 90%, rgba(34, 197, 94, 0.16), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, "Helvetica Neue", sans-serif;
+      color: var(--text);
+    }
 
-      .page {
-        max-width: 1150px;
-        margin: 0 auto;
-        padding: 28px 18px 50px;
-      }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-      .header {
-        display: grid;
-        gap: 14px;
-        padding: 18px 18px 14px;
-        border: 1px solid var(--border);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(10px);
-      }
+    .page {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 20px 18px 50px;
+    }
 
-      .titleRow {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 12px;
-      }
+    .header {
+      display: grid;
+      gap: 14px;
+      padding: 18px 18px 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
 
-      .title {
-        font-size: 22px;
-        font-weight: 750;
-        letter-spacing: 0.2px;
-      }
+    .titleRow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-      .subtitle {
-        color: var(--muted);
-        font-size: 13.5px;
-      }
+    .title {
+      font-size: 22px;
+      font-weight: 750;
+      letter-spacing: 0.2px;
+    }
 
-      .controls {
-        display: grid;
-        gap: 12px;
-      }
+    .subtitle {
+      color: var(--muted);
+      font-size: 13.5px;
+    }
 
-      .controlRow {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        align-items: center;
-        justify-content: space-between;
-      }
+    .controls {
+      display: grid;
+      gap: 12px;
+    }
 
-      .search {
-        flex: 1 1 420px;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        padding: 12px 12px;
-        border-radius: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        background: rgba(0, 0, 0, 0.22);
-      }
+    .controlRow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-      .search input {
-        width: 100%;
-        border: 0;
-        outline: 0;
-        color: var(--text);
-        background: transparent;
-        font-size: 14px;
-      }
+    .search {
+      flex: 1 1 420px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.22);
+    }
 
-      .search input::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-      }
+    .search input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      color: var(--text);
+      background: transparent;
+      font-size: 14px;
+    }
 
-      .btnRow {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-end;
-      }
+    .search input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
 
-      .btn {
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background: rgba(255, 255, 255, 0.07);
-        color: var(--text);
-        padding: 10px 12px;
-        border-radius: 12px;
-        font-size: 13px;
-        cursor: pointer;
-        transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
-      }
+    .btnRow {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
 
-      .btn:hover {
-        transform: translateY(-1px);
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.26);
-      }
+    .btn {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+    }
 
-      .btn:active {
-        transform: translateY(0px);
-      }
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.26);
+    }
 
-      .btn:focus-visible {
-        outline: 3px solid var(--focus);
-        outline-offset: 2px;
-      }
+    .btn:active {
+      transform: translateY(0px);
+    }
 
-      .fileInput {
-        display: none;
-      }
+    .btn:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
 
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-      }
+    .fileInput {
+      display: none;
+    }
 
-      .chip {
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        background: var(--chip);
-        padding: 8px 10px;
-        border-radius: 999px;
-        font-size: 12.5px;
-        color: var(--muted);
-        cursor: pointer;
-        user-select: none;
-        transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
-      }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
 
-      .chip:hover {
-        border-color: rgba(255, 255, 255, 0.26);
-        color: rgba(255, 255, 255, 0.82);
-      }
+    .chip {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: var(--chip);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+    }
 
-      .chip[data-active="true"] {
-        color: rgba(255, 255, 255, 0.92);
-        background: rgba(255, 255, 255, 0.14);
-        border-color: rgba(255, 255, 255, 0.26);
-      }
+    .chip:hover {
+      border-color: rgba(255, 255, 255, 0.26);
+      color: rgba(255, 255, 255, 0.82);
+    }
 
-      .statsRow {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-      }
+    .chip[data-active="true"] {
+      color: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.26);
+    }
 
-      .stat {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        align-items: center;
-      }
+    .statsRow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
 
-      .badge {
-        padding: 8px 10px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        background: rgba(255, 255, 255, 0.06);
-        color: var(--muted);
-        font-size: 12.5px;
-      }
+    .stat {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
-      .legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
+    .badge {
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-size: 12.5px;
+    }
 
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 8px;
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
-      }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-      .dot.info {
-        background: var(--info);
-      }
-      .dot.success {
-        background: var(--success);
-      }
-      .dot.redirect {
-        background: var(--redirect);
-      }
-      .dot.client {
-        background: var(--client);
-      }
-      .dot.server {
-        background: var(--server);
-      }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+    }
 
-      .grid {
-        margin-top: 18px;
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 12px;
-      }
+    .dot.info {
+      background: var(--info);
+    }
 
+    .dot.success {
+      background: var(--success);
+    }
+
+    .dot.redirect {
+      background: var(--redirect);
+    }
+
+    .dot.client {
+      background: var(--client);
+    }
+
+    .dot.server {
+      background: var(--server);
+    }
+
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(16, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      grid-column: span 16;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    @media (min-width: 720px) {
       .card {
-        grid-column: span 12;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(10px);
-        overflow: hidden;
-        position: relative;
+        grid-column: span 6;
       }
+    }
 
-      @media (min-width: 720px) {
-        .card {
-          grid-column: span 6;
-        }
+    @media (min-width: 1020px) {
+      .card {
+        grid-column: span 4;
       }
+    }
 
-      @media (min-width: 1020px) {
-        .card {
-          grid-column: span 4;
-        }
-      }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(650px 260px at 12% 18%, rgba(255, 255, 255, 0.08), transparent 55%);
+      pointer-events: none;
+    }
 
-      .card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(650px 260px at 12% 18%, rgba(255, 255, 255, 0.08), transparent 55%);
-        pointer-events: none;
-      }
+    .cardTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 14px 8px;
+    }
 
-      .cardTop {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 14px 14px 8px;
-      }
+    .code {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
 
-      .code {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
+    .codeNumber {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
 
-      .codeNumber {
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: 0.3px;
-      }
+    .pill {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.18);
+      color: rgba(255, 255, 255, 0.82);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      white-space: nowrap;
+    }
 
-      .pill {
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        background: rgba(0, 0, 0, 0.18);
-        color: rgba(255, 255, 255, 0.82);
-        padding: 6px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-        display: inline-flex;
-        gap: 8px;
-        align-items: center;
-        white-space: nowrap;
-      }
+    .pill .accent {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+    }
 
-      .pill .accent {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
-      }
+    .pill.info .accent {
+      background: var(--info);
+    }
 
-      .pill.info .accent {
-        background: var(--info);
-      }
-      .pill.success .accent {
-        background: var(--success);
-      }
-      .pill.redirect .accent {
-        background: var(--redirect);
-      }
-      .pill.client .accent {
-        background: var(--client);
-      }
-      .pill.server .accent {
-        background: var(--server);
-      }
+    .pill.success .accent {
+      background: var(--success);
+    }
 
-      .cardBody {
-        padding: 0 14px 14px;
-        position: relative;
-      }
+    .pill.redirect .accent {
+      background: var(--redirect);
+    }
 
-      .message {
-        font-weight: 700;
-        font-size: 15px;
-        line-height: 1.2;
-        margin: 0 0 8px;
-      }
+    .pill.client .accent {
+      background: var(--client);
+    }
 
-      .desc {
-        margin: 0;
-        color: var(--muted);
-        font-size: 13.5px;
-        line-height: 1.45;
-      }
+    .pill.server .accent {
+      background: var(--server);
+    }
 
-      .empty {
-        margin-top: 16px;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.05);
-        padding: 14px;
-        color: var(--muted);
-      }
+    .cardBody {
+      padding: 0 14px 14px;
+      position: relative;
+    }
 
-      .hint {
-        color: var(--muted2);
-        font-size: 12.5px;
-        line-height: 1.35;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <div class="header">
-        <div class="titleRow">
-          <div>
-            <div class="title">HTTP Status Codes</div>
-            <div class="subtitle">Search, filter by class, and explore descriptions</div>
-          </div>
-          <div class="legend">
-            <span class="badge"><span class="dot info"></span>1xx</span>
-            <span class="badge"><span class="dot success"></span>2xx</span>
-            <span class="badge"><span class="dot redirect"></span>3xx</span>
-            <span class="badge"><span class="dot client"></span>4xx</span>
-            <span class="badge"><span class="dot server"></span>5xx</span>
-          </div>
+    .message {
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.2;
+      margin: 0 0 8px;
+    }
+
+    .desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .empty {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 14px;
+      color: var(--muted);
+    }
+
+    .hint {
+      color: var(--muted2);
+      font-size: 12.5px;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="titleRow">
+        <div>
+          <div class="title">HTTP Status Codes</div>
+          <div class="subtitle">Search, filter by class, and explore descriptions</div>
         </div>
-
-        <div class="controls">
-          <div class="controlRow">
-            <div class="search" role="search">
-              <input id="searchInput" type="search" placeholder="Search by code, name, or description (e.g., 404, teapot, timeout)" autocomplete="off" />
-            </div>
-            <div class="btnRow">
-              <button id="loadJsonBtn" class="btn" type="button">Load JSON file</button>
-              <input id="fileInput" class="fileInput" type="file" accept="application/json" />
-              <button id="downloadJsonBtn" class="btn" type="button">Download JSON</button>
-              <button id="clearBtn" class="btn" type="button">Clear</button>
-            </div>
-          </div>
-
-          <div class="chips" id="chipRow"></div>
-
-          <div class="statsRow">
-            <div class="stat">
-              <span class="badge" id="countBadge">0 codes</span>
-              <span class="hint" id="sourceHint"></span>
-            </div>
-            <div class="hint" id="groupHint"></div>
-          </div>
+        <div class="legend">
+          <span class="badge"><span class="dot info"></span>1xx</span>
+          <span class="badge"><span class="dot success"></span>2xx</span>
+          <span class="badge"><span class="dot redirect"></span>3xx</span>
+          <span class="badge"><span class="dot client"></span>4xx</span>
+          <span class="badge"><span class="dot server"></span>5xx</span>
         </div>
       </div>
 
-      <div id="grid" class="grid"></div>
-      <div id="empty" class="empty" style="display: none;"></div>
+      <div class="controls">
+        <div class="controlRow">
+          <div class="search" role="search">
+            <input id="searchInput" type="search"
+              placeholder="Search by code, name, or description (e.g., 404, teapot, timeout)" autocomplete="off" />
+          </div>
+          <div class="btnRow">
+            <button id="loadJsonBtn" class="btn" type="button">Load JSON file</button>
+            <input id="fileInput" class="fileInput" type="file" accept="application/json" />
+            <button id="downloadJsonBtn" class="btn" type="button">Download JSON</button>
+            <button id="clearBtn" class="btn" type="button">Clear</button>
+          </div>
+        </div>
+
+        <div class="chips" id="chipRow"></div>
+
+        <div class="statsRow">
+          <div class="stat">
+            <span class="badge" id="countBadge">0 codes</span>
+            <span class="hint" id="sourceHint"></span>
+          </div>
+          <div class="hint" id="groupHint"></div>
+        </div>
+      </div>
     </div>
 
-    <script id="fallback-data" type="application/json">
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" style="display: none;"></div>
+  </div>
+
+  <script id="fallback-data" type="application/json">
 {
   "1xx": {
     "code": "1xx",
@@ -875,177 +886,177 @@
 }
     </script>
 
-    <script>
-      const groupLabels = {
-        all: "All",
-        1: "1xx",
-        2: "2xx",
-        3: "3xx",
-        4: "4xx",
-        5: "5xx"
-      };
+  <script>
+    const groupLabels = {
+      all: "All",
+      1: "1xx",
+      2: "2xx",
+      3: "3xx",
+      4: "4xx",
+      5: "5xx"
+    };
 
-      const groupToneClass = {
-        1: "info",
-        2: "success",
-        3: "redirect",
-        4: "client",
-        5: "server"
-      };
+    const groupToneClass = {
+      1: "info",
+      2: "success",
+      3: "redirect",
+      4: "client",
+      5: "server"
+    };
 
-      const ui = {
-        chipRow: document.getElementById("chipRow"),
-        grid: document.getElementById("grid"),
-        empty: document.getElementById("empty"),
-        searchInput: document.getElementById("searchInput"),
-        countBadge: document.getElementById("countBadge"),
-        sourceHint: document.getElementById("sourceHint"),
-        groupHint: document.getElementById("groupHint"),
-        loadJsonBtn: document.getElementById("loadJsonBtn"),
-        fileInput: document.getElementById("fileInput"),
-        downloadJsonBtn: document.getElementById("downloadJsonBtn"),
-        clearBtn: document.getElementById("clearBtn")
-      };
+    const ui = {
+      chipRow: document.getElementById("chipRow"),
+      grid: document.getElementById("grid"),
+      empty: document.getElementById("empty"),
+      searchInput: document.getElementById("searchInput"),
+      countBadge: document.getElementById("countBadge"),
+      sourceHint: document.getElementById("sourceHint"),
+      groupHint: document.getElementById("groupHint"),
+      loadJsonBtn: document.getElementById("loadJsonBtn"),
+      fileInput: document.getElementById("fileInput"),
+      downloadJsonBtn: document.getElementById("downloadJsonBtn"),
+      clearBtn: document.getElementById("clearBtn")
+    };
 
-      const state = {
-        data: null,
-        statusItems: [],
-        groupMeta: {},
-        groupFilter: "all",
-        query: "",
-        source: "fallback"
-      };
+    const state = {
+      data: null,
+      statusItems: [],
+      groupMeta: {},
+      groupFilter: "all",
+      query: "",
+      source: "fallback"
+    };
 
-      function escapeText(value) {
-        return String(value)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#39;");
-      }
+    function escapeText(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
 
-      function normalizeString(value) {
-        return String(value ?? "")
-          .trim()
-          .toLowerCase();
-      }
+    function normalizeString(value) {
+      return String(value ?? "")
+        .trim()
+        .toLowerCase();
+    }
 
-      function buildIndex(data) {
-        const statusItems = [];
-        const groupMeta = {};
+    function buildIndex(data) {
+      const statusItems = [];
+      const groupMeta = {};
 
-        for (const [key, value] of Object.entries(data || {})) {
-          if (!value || typeof value !== "object") continue;
+      for (const [key, value] of Object.entries(data || {})) {
+        if (!value || typeof value !== "object") continue;
 
-          const codeValue = value.code;
-          if (typeof codeValue === "string" && /^[1-5]xx$/i.test(codeValue)) {
-            const g = Number(codeValue[0]);
-            groupMeta[g] = {
-              code: codeValue,
-              message: value.message ?? "",
-              description: value.description ?? ""
-            };
-            continue;
-          }
-
-          if (typeof codeValue === "number" && Number.isFinite(codeValue)) {
-            const g = Math.floor(codeValue / 100);
-            statusItems.push({
-              key,
-              code: codeValue,
-              group: g,
-              message: value.message ?? "",
-              description: value.description ?? ""
-            });
-          }
+        const codeValue = value.code;
+        if (typeof codeValue === "string" && /^[1-5]xx$/i.test(codeValue)) {
+          const g = Number(codeValue[0]);
+          groupMeta[g] = {
+            code: codeValue,
+            message: value.message ?? "",
+            description: value.description ?? ""
+          };
+          continue;
         }
 
-        statusItems.sort((a, b) => a.code - b.code);
-        state.statusItems = statusItems;
-        state.groupMeta = groupMeta;
-      }
-
-      function getGroupHint(group) {
-        if (group === "all") return "";
-        const g = Number(group);
-        const meta = state.groupMeta[g];
-        if (!meta) return "";
-        const title = `${meta.code} — ${meta.message}`;
-        const desc = meta.description ? ` ${meta.description}` : "";
-        return title + desc;
-      }
-
-      function renderChips() {
-        const order = ["all", 1, 2, 3, 4, 5];
-        ui.chipRow.innerHTML = order
-          .map((g) => {
-            const id = String(g);
-            const label = groupLabels[g] ?? id;
-            const active = state.groupFilter === id;
-            return `<div class="chip" role="button" tabindex="0" data-group="${escapeText(id)}" data-active="${active ? "true" : "false"}">${escapeText(label)}</div>`;
-          })
-          .join("");
-
-        const onActivate = (el) => {
-          const group = el.getAttribute("data-group");
-          if (!group) return;
-          state.groupFilter = group;
-          render();
-        };
-
-        ui.chipRow.querySelectorAll(".chip").forEach((el) => {
-          el.addEventListener("click", () => onActivate(el));
-          el.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              onActivate(el);
-            }
+        if (typeof codeValue === "number" && Number.isFinite(codeValue)) {
+          const g = Math.floor(codeValue / 100);
+          statusItems.push({
+            key,
+            code: codeValue,
+            group: g,
+            message: value.message ?? "",
+            description: value.description ?? ""
           });
-        });
-      }
-
-      function matchesQuery(item, q) {
-        if (!q) return true;
-        const codeStr = String(item.code);
-        const haystack = normalizeString(codeStr + " " + item.message + " " + item.description);
-        return haystack.includes(q);
-      }
-
-      function matchesGroup(item, groupFilter) {
-        if (groupFilter === "all") return true;
-        const g = Number(groupFilter);
-        return item.group === g;
-      }
-
-      function pillClassForGroup(groupNumber) {
-        return groupToneClass[groupNumber] ?? "info";
-      }
-
-      function render() {
-        renderChips();
-
-        const q = normalizeString(state.query);
-        const groupFilter = state.groupFilter;
-
-        const filtered = state.statusItems.filter((item) => matchesGroup(item, groupFilter) && matchesQuery(item, q));
-        ui.countBadge.textContent = `${filtered.length} codes`;
-        ui.sourceHint.textContent = state.source === "json" ? "Loaded from http-status-codes.json" : "Loaded from embedded fallback data";
-        ui.groupHint.textContent = getGroupHint(groupFilter);
-
-        if (filtered.length === 0) {
-          ui.grid.innerHTML = "";
-          ui.empty.style.display = "block";
-          ui.empty.textContent = "No results. Try a different group or search term.";
-          return;
         }
+      }
 
-        ui.empty.style.display = "none";
+      statusItems.sort((a, b) => a.code - b.code);
+      state.statusItems = statusItems;
+      state.groupMeta = groupMeta;
+    }
 
-        ui.grid.innerHTML = filtered
-          .map((item) => {
-            const pillClass = pillClassForGroup(item.group);
-            return `
+    function getGroupHint(group) {
+      if (group === "all") return "";
+      const g = Number(group);
+      const meta = state.groupMeta[g];
+      if (!meta) return "";
+      const title = `${meta.code} — ${meta.message}`;
+      const desc = meta.description ? ` ${meta.description}` : "";
+      return title + desc;
+    }
+
+    function renderChips() {
+      const order = ["all", 1, 2, 3, 4, 5];
+      ui.chipRow.innerHTML = order
+        .map((g) => {
+          const id = String(g);
+          const label = groupLabels[g] ?? id;
+          const active = state.groupFilter === id;
+          return `<div class="chip" role="button" tabindex="0" data-group="${escapeText(id)}" data-active="${active ? "true" : "false"}">${escapeText(label)}</div>`;
+        })
+        .join("");
+
+      const onActivate = (el) => {
+        const group = el.getAttribute("data-group");
+        if (!group) return;
+        state.groupFilter = group;
+        render();
+      };
+
+      ui.chipRow.querySelectorAll(".chip").forEach((el) => {
+        el.addEventListener("click", () => onActivate(el));
+        el.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onActivate(el);
+          }
+        });
+      });
+    }
+
+    function matchesQuery(item, q) {
+      if (!q) return true;
+      const codeStr = String(item.code);
+      const haystack = normalizeString(codeStr + " " + item.message + " " + item.description);
+      return haystack.includes(q);
+    }
+
+    function matchesGroup(item, groupFilter) {
+      if (groupFilter === "all") return true;
+      const g = Number(groupFilter);
+      return item.group === g;
+    }
+
+    function pillClassForGroup(groupNumber) {
+      return groupToneClass[groupNumber] ?? "info";
+    }
+
+    function render() {
+      renderChips();
+
+      const q = normalizeString(state.query);
+      const groupFilter = state.groupFilter;
+
+      const filtered = state.statusItems.filter((item) => matchesGroup(item, groupFilter) && matchesQuery(item, q));
+      ui.countBadge.textContent = `${filtered.length} codes`;
+      ui.sourceHint.textContent = state.source === "json" ? "Loaded from http-status-codes.json" : "Loaded from embedded fallback data";
+      ui.groupHint.textContent = getGroupHint(groupFilter);
+
+      if (filtered.length === 0) {
+        ui.grid.innerHTML = "";
+        ui.empty.style.display = "block";
+        ui.empty.textContent = "No results. Try a different group or search term.";
+        return;
+      }
+
+      ui.empty.style.display = "none";
+
+      ui.grid.innerHTML = filtered
+        .map((item) => {
+          const pillClass = pillClassForGroup(item.group);
+          return `
               <div class="card">
                 <div class="cardTop">
                   <div class="code">
@@ -1062,82 +1073,83 @@
                 </div>
               </div>
             `;
-          })
-          .join("");
+        })
+        .join("");
+    }
+
+    function downloadCurrentJson() {
+      const jsonText = JSON.stringify(state.data ?? {}, null, 2);
+      const blob = new Blob([jsonText], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "http-status-codes.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+    }
+
+    function setData(data, source) {
+      state.data = data;
+      state.source = source;
+      buildIndex(data);
+      render();
+    }
+
+    async function tryLoadFromJsonFile() {
+      try {
+        const res = await fetch("./http-status-codes.json", { cache: "no-store" });
+        if (!res.ok) return false;
+        const json = await res.json();
+        setData(json, "json");
+        return true;
+      } catch {
+        return false;
       }
+    }
 
-      function downloadCurrentJson() {
-        const jsonText = JSON.stringify(state.data ?? {}, null, 2);
-        const blob = new Blob([jsonText], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
+    function loadFallback() {
+      const raw = document.getElementById("fallback-data")?.textContent ?? "{}";
+      const json = JSON.parse(raw);
+      setData(json, "fallback");
+    }
 
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "http-status-codes.json";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-
-        setTimeout(() => URL.revokeObjectURL(url), 0);
-      }
-
-      function setData(data, source) {
-        state.data = data;
-        state.source = source;
-        buildIndex(data);
+    function wireEvents() {
+      ui.searchInput.addEventListener("input", (e) => {
+        state.query = e.target.value ?? "";
         render();
-      }
+      });
 
-      async function tryLoadFromJsonFile() {
-        try {
-          const res = await fetch("./http-status-codes.json", { cache: "no-store" });
-          if (!res.ok) return false;
-          const json = await res.json();
-          setData(json, "json");
-          return true;
-        } catch {
-          return false;
-        }
-      }
+      ui.clearBtn.addEventListener("click", () => {
+        state.query = "";
+        state.groupFilter = "all";
+        ui.searchInput.value = "";
+        render();
+      });
 
-      function loadFallback() {
-        const raw = document.getElementById("fallback-data")?.textContent ?? "{}";
-        const json = JSON.parse(raw);
-        setData(json, "fallback");
-      }
+      ui.downloadJsonBtn.addEventListener("click", () => downloadCurrentJson());
 
-      function wireEvents() {
-        ui.searchInput.addEventListener("input", (e) => {
-          state.query = e.target.value ?? "";
-          render();
-        });
+      ui.loadJsonBtn.addEventListener("click", () => ui.fileInput.click());
 
-        ui.clearBtn.addEventListener("click", () => {
-          state.query = "";
-          state.groupFilter = "all";
-          ui.searchInput.value = "";
-          render();
-        });
+      ui.fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const text = await file.text();
+        const json = JSON.parse(text);
+        setData(json, "json");
+        ui.fileInput.value = "";
+      });
+    }
 
-        ui.downloadJsonBtn.addEventListener("click", () => downloadCurrentJson());
+    (async function init() {
+      wireEvents();
+      loadFallback();
+      await tryLoadFromJsonFile();
+    })();
+  </script>
+</body>
 
-        ui.loadJsonBtn.addEventListener("click", () => ui.fileInput.click());
-
-        ui.fileInput.addEventListener("change", async (e) => {
-          const file = e.target.files?.[0];
-          if (!file) return;
-          const text = await file.text();
-          const json = JSON.parse(text);
-          setData(json, "json");
-          ui.fileInput.value = "";
-        });
-      }
-
-      (async function init() {
-        wireEvents();
-        loadFallback();
-        await tryLoadFromJsonFile();
-      })();
-    </script>
-  </body>
 </html>
